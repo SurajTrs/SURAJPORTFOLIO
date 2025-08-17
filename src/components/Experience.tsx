@@ -45,7 +45,7 @@ export default function Experience() {
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl font-bold mb-4">Work Experience</h2>
+          <h2 className="text-3xl font-bold mb-4 text-black">Work Experience</h2>
           <div className="h-1 w-20 bg-gradient-to-r from-primary to-secondary mx-auto"></div>
         </motion.div>
 
@@ -66,7 +66,7 @@ export default function Experience() {
                 <div className="relative rounded-2xl p-[1px] bg-gradient-to-br from-primary/30 via-secondary/30 to-transparent">
                   {/* Card */}
                   <motion.div
-                    className="relative h-full min-h-[260px] rounded-2xl border border-neutral-200 dark:border-border/60 bg-white dark:bg-card/80 text-black dark:text-white backdrop-blur p-6 shadow-sm hover:shadow-xl hover:ring-1 hover:ring-primary/20 transition-shadow transition-colors transform-gpu focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+                    className="relative h-full min-h-[260px] rounded-2xl border border-neutral-200 bg-white text-black backdrop-blur p-6 shadow-sm hover:shadow-xl hover:ring-1 hover:ring-primary/20 transition-shadow transition-colors transform-gpu focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
                     whileHover={{ rotateX: -3, rotateY: 3, y: -6, scale: 1.015 }}
                     whileTap={{ scale: 0.995 }}
                     transition={{ type: 'spring', stiffness: 220, damping: 20 }}
@@ -83,31 +83,31 @@ export default function Experience() {
                           <FiBriefcase />
                         </div>
                         <div>
-                          <h3 className="text-lg font-bold tracking-tight text-black dark:text-white">
+                          <h3 className="text-lg font-bold tracking-tight text-black">
                             {exp.company}
                           </h3>
-                          <span className="inline-block mt-1 px-2 py-0.5 text-xs rounded-full bg-neutral-100 dark:bg-foreground/5 text-black/70 dark:text-foreground/80 border border-neutral-200 dark:border-border/40">
+                          <span className="inline-block mt-1 px-2 py-0.5 text-xs rounded-full bg-neutral-100 text-black/70 border border-neutral-200">
                             {exp.position}
                           </span>
                         </div>
                       </div>
-                      <div className="hidden sm:flex items-center gap-2 text-xs px-2 py-1 rounded-full bg-neutral-100 dark:bg-primary/10 text-black/80 dark:text-primary border border-neutral-200 dark:border-primary/20">
+                      <div className="hidden sm:flex items-center gap-2 text-xs px-2 py-1 rounded-full bg-neutral-100 text-black/80 border border-neutral-200">
                         <FiCalendar />
                         <span>{exp.period}</span>
                       </div>
                     </div>
 
                     {/* Divider */}
-                    <div className="my-3 h-px bg-gradient-to-r from-transparent via-neutral-200 dark:via-border to-transparent" />
+                    <div className="my-3 h-px bg-gradient-to-r from-transparent via-neutral-200 to-transparent" />
 
                     {/* Period (mobile) */}
-                    <div className="sm:hidden flex items-center gap-2 text-black/70 dark:text-foreground/70 text-xs mb-3">
+                    <div className="sm:hidden flex items-center gap-2 text-black/70 text-xs mb-3">
                       <FiCalendar />
                       <span>{exp.period}</span>
                     </div>
 
                     {/* Description */}
-                    <p className="text-sm leading-relaxed text-black/80 dark:text-foreground/80 mb-4">
+                    <p className="text-sm leading-relaxed text-black/80 mb-4">
                       {exp.description}
                     </p>
 
@@ -116,7 +116,7 @@ export default function Experience() {
                       {exp.technologies.map((tech) => (
                         <span
                           key={tech}
-                          className="px-2.5 py-1 rounded-full text-[11px] bg-neutral-100 dark:bg-gradient-to-b dark:from-primary/10 dark:to-primary/5 text-black dark:text-primary border border-neutral-200 dark:border-primary/20 shadow-[inset_0_1px_0_rgba(255,255,255,0.12)]"
+                          className="px-2.5 py-1 rounded-full text-[11px] bg-neutral-100 text-black border border-neutral-200 shadow-[inset_0_1px_0_rgba(255,255,255,0.12)]"
                         >
                           {tech}
                         </span>
