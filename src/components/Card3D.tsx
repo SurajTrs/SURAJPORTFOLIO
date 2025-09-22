@@ -114,7 +114,7 @@ export default function Card3D({
       </div>
       
       {/* Actual content */}
-      <div className="relative z-10 rounded-xl p-6 border border-border/40 bg-white/70 dark:bg-white/5 backdrop-blur">
+      <div className="relative z-10 rounded-xl p-6 border border-neutral-200 dark:border-blue-300/20 bg-white dark:bg-blue-900/30 backdrop-blur">
         {children}
       </div>
     </motion.div>

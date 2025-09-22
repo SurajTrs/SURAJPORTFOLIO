@@ -3,10 +3,6 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { FiGithub, FiExternalLink } from 'react-icons/fi';
-import Card3D from './Card3D';
-import ProjectTitle from './ProjectTitle';
-import { Canvas } from '@react-three/fiber';
-import { Float } from '@react-three/drei';
 
 const projects = [
   {
@@ -15,7 +11,8 @@ const projects = [
     image: '/projects/ai-assistant.jpg',
     technologies: ['Python', 'Node.js', 'Transformers', 'PyTorch', 'AWS'],
     github: 'https://github.com/SurajTrs/Tripy',
-    demo: 'https://tripyassistant.vercel.app'
+    demo: 'https://tripyassistant.vercel.app',
+    featured: true
   },
   {
     title: 'Student Sharpner Edtech Platform',
@@ -23,7 +20,8 @@ const projects = [
     image: '/projects/edtech.jpg',
     technologies: ['React', 'Node.js', 'Express', 'MongoDB', 'Tailwind', 'Vercel'],
     github: 'https://github.com/SurajTrs/STUDENT_SHARPNER',
-    demo: 'https://student-sharpner-bi8a.vercel.app'
+    demo: 'https://student-sharpner-bi8a.vercel.app',
+    featured: true
   },
   {
     title: 'Amazon Clone E-Commerce',
@@ -31,57 +29,40 @@ const projects = [
     image: '/projects/ecommerce.jpg',
     technologies: ['React', 'Firebase Auth', 'Firestore', 'FakeStore API'],
     github: 'https://github.com/SurajTrs/Amazon',
-    demo: 'https://amazon-shopping-voxs.vercel.app/home'
+    demo: 'https://amazon-shopping-voxs.vercel.app/home',
+    featured: true
+  },
+  {
+    title: 'Portfolio Website',
+    description: 'Modern portfolio website built with Next.js, TypeScript, and Tailwind CSS. Features a responsive design and dark/light mode.',
+    image: '/projects/portfolio.jpg',
+    technologies: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
+    github: 'https://github.com/SurajTrs/portfolio',
+    demo: '#',
+    featured: false
   }
 ];
 
 export default function Projects() {
   return (
-    <section id="projects" className="section-padding bg-muted/30 dark:bg-muted/10 relative overflow-hidden">
-      {/* 3D animated background elements */}
-      <div className="absolute inset-0 -z-5">
-        <Canvas>
-          <ambientLight intensity={0.2} />
-          <pointLight position={[10, 10, 10]} intensity={0.5} />
-          
-          {/* Floating spheres */}
-          {[...Array(10)].map((_, i) => {
-            const posX = (Math.random() - 0.5) * 10;
-            const posY = (Math.random() - 0.5) * 10;
-            const posZ = (Math.random() - 0.5) * 5 - 5;
-            const size = Math.random() * 0.5 + 0.1;
-            
-            return (
-              <Float key={i} speed={Math.random() + 0.2} rotationIntensity={0.2} floatIntensity={0.5}>
-                <mesh position={[posX, posY, posZ]}>
-                  <sphereGeometry args={[size, 16, 16]} />
-                  <meshStandardMaterial 
-                    color={i % 2 === 0 ? "#4f46e5" : "#8b5cf6"} 
-                    transparent
-                    opacity={0.7}
-                    metalness={0.5}
-                    roughness={0.2}
-                  />
-                </mesh>
-              </Float>
-            );
-          })}
-        </Canvas>
-      </div>
-      
-      <div className="container relative z-10">
+    <section id="projects" className="py-20 bg-white dark:bg-gray-900">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center"
+          className="text-center mb-16"
         >
-          <ProjectTitle title="Key Projects" color="#6366f1" floatIntensity={0.3} />
+          <span className="text-sm font-medium text-blue-600 dark:text-blue-400 mb-2 inline-block">My Work</span>
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+            Featured <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Projects</span>
+          </h2>
+          <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full"></div>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mt-12">
-          {projects.map((project, index) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {projects.filter(project => project.featured).map((project, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}
@@ -89,45 +70,27 @@ export default function Projects() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className="group"
-              whileHover={{ rotateX: 6, rotateY: 8, scale: 1.04 }}
-              style={{ perspective: 1000 }}
             >
-              <Card3D 
-                className="overflow-hidden h-full glass shadow-xl border border-primary/20 hover:shadow-2xl transition-shadow duration-300" 
-                title={project.title}
-                glowColor={index % 2 === 0 ? "#4f46e5" : "#8b5cf6"}
-                rotationIntensity={0.18}
-              >
+              <div className="h-full bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden border border-gray-100 dark:border-gray-700 hover:shadow-lg transition-all duration-300 flex flex-col">
                 <div className="relative h-48 overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 z-10 mix-blend-overlay group-hover:opacity-70 transition-opacity" />
-                  <motion.div
-                    initial={{ scale: 1 }}
-                    whileHover={{ scale: 1.1, rotate: 1 }}
-                    transition={{ duration: 0.4 }}
-                    className="relative h-full w-full"
-                  >
-                    <Image 
-                      src={project.image} 
-                      alt={project.title} 
-                      fill 
-                      className="object-cover"
-                    />
-                  </motion.div>
-                  <div className="absolute top-2 right-2 z-20">
-                    <span className="px-3 py-1 glass text-xs font-medium rounded-full">
-                      {project.technologies[0]}
-                    </span>
-                  </div>
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
                 </div>
-                <div className="p-6">
-                  <h3 className="text-2xl font-extrabold mb-2 group-hover:text-primary transition-colors tracking-tight drop-shadow-lg">{project.title}</h3>
-                  <p className="text-foreground/80 mb-4 text-base leading-relaxed">{project.description}</p>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {project.technologies.slice(1).map((tech) => (
+                <div className="p-6 flex-1 flex flex-col">
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{project.title}</h3>
+                  <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 flex-1">
+                    {project.description}
+                  </p>
+                  <div className="flex flex-wrap gap-2 mt-4">
+                    {project.technologies.map((tech, i) => (
                       <motion.span 
-                        key={tech} 
-                        className="px-2 py-1 bg-primary/10 text-primary rounded-full text-xs"
-                        whileHover={{ scale: 1.05, backgroundColor: 'rgba(var(--primary-rgb), 0.2)' }}
+                        key={i}
+                        className="px-2.5 py-1 text-xs font-medium rounded-full bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400"
+                        whileHover={{ scale: 1.05 }}
                       >
                         {tech}
                       </motion.span>
@@ -156,7 +119,7 @@ export default function Projects() {
                     </motion.a>
                   </div>
                 </div>
-              </Card3D>
+              </div>
             </motion.div>
           ))}
         </div>

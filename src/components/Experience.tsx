@@ -1,7 +1,8 @@
 'use client';
 
+import React from 'react';
 import { motion } from 'framer-motion';
-import { FiBriefcase, FiCalendar } from 'react-icons/fi';
+import { FiBriefcase, FiCalendar, FiExternalLink } from 'react-icons/fi';
 
 const experiences = [
   {
@@ -9,124 +10,116 @@ const experiences = [
     position: 'Software Engineer (AI/ML)',
     period: 'May 2024 – Present',
     description: 'Developing AI voice bots and low-latency APIs using AWS, GPT, and LLaMA models. Implemented voice recognition systems with sub-300ms response times.',
-    technologies: ['AWS', 'GPT', 'LLaMA', 'Python', 'Node.js']
+    technologies: ['AWS', 'GPT', 'LLaMA', 'Python', 'Node.js'],
+    link: '#'
   },
   {
     company: 'Codbee.in',
     position: 'Full-Stack Developer',
-    period: 'Jan 2024 – Mar 2024',
+    period: 'Jan 2024 – May 2025',
     description: 'Created a voice-enabled learning assistant using Hugging Face and DeepSpeech technologies. Improved user engagement by 25% through intuitive voice commands.',
-    technologies: ['React', 'Node.js', 'Hugging Face', 'DeepSpeech', 'MongoDB']
+    technologies: ['React', 'Node.js', 'Hugging Face', 'DeepSpeech', 'MongoDB'],
+    link: '#'
   },
   {
     company: 'Advance Career Guide',
     position: 'Backend Developer',
     period: 'Sep 2023 – Jan 2024',
     description: 'Implemented chatbot voice commands and AWS deployments. Optimized server response times by 40% through efficient database queries and caching.',
-    technologies: ['Express', 'AWS', 'MongoDB', 'WebSockets', 'Redis']
+    technologies: ['Express', 'AWS', 'MongoDB', 'WebSockets', 'Redis'],
+    link: '#'
   },
   {
     company: 'Suvidha Foundation',
     position: 'Frontend Developer',
     period: 'Jun 2023 – Aug 2023',
     description: 'Developed NLP-based search functionality and implemented accessibility improvements. Enhanced website performance by 30% through code optimization.',
-    technologies: ['React', 'Tailwind CSS', 'NLP', 'Accessibility', 'SEO']
+    technologies: ['React', 'Tailwind CSS', 'NLP', 'Accessibility', 'SEO'],
+    link: '#'
   }
 ];
 
 export default function Experience() {
   return (
-    <section id="experience" className="section-padding">
-      <div className="container">
+    <section id="experience" className="py-20 bg-gray-50 dark:bg-gray-900">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-12"
+          className="text-center mb-16"
         >
-          <h2 className="text-3xl font-bold mb-4 text-black">Work Experience</h2>
-          <div className="h-1 w-20 bg-gradient-to-r from-primary to-secondary mx-auto"></div>
+          <span className="text-sm font-medium text-blue-600 dark:text-blue-400 mb-2 inline-block">Work History</span>
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+            Professional <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Journey</span>
+          </h2>
+          <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full"></div>
         </motion.div>
 
-        {/* Professional cards layout */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {experiences.map((exp, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.08 }}
-              className="group"
-            >
-              {/* 3D tilt wrapper with perspective */}
-              <div className="[perspective:1000px]">
-                {/* Gradient border */}
-                <div className="relative rounded-2xl p-[1px] bg-gradient-to-br from-primary/30 via-secondary/30 to-transparent">
-                  {/* Card */}
-                  <motion.div
-                    className="relative h-full min-h-[260px] rounded-2xl border border-neutral-200 bg-white text-black backdrop-blur p-6 shadow-sm hover:shadow-xl hover:ring-1 hover:ring-primary/20 transition-shadow transition-colors transform-gpu focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
-                    whileHover={{ rotateX: -3, rotateY: 3, y: -6, scale: 1.015 }}
-                    whileTap={{ scale: 0.995 }}
-                    transition={{ type: 'spring', stiffness: 220, damping: 20 }}
-                    tabIndex={0}
-                    style={{ transformStyle: 'preserve-3d' }}
-                  >
-                    {/* Shine */}
-                    <div className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ background: 'radial-gradient(600px circle at 0% -20%, rgba(255,255,255,0.08), transparent 40%)' }} />
-
-                    {/* Header */}
-                    <div className="flex items-start justify-between mb-4">
-                      <div className="flex items-center gap-3">
-                        <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary/10 text-primary shadow-sm">
-                          <FiBriefcase />
-                        </div>
+        <div className="relative max-w-5xl mx-auto">
+          {/* Timeline line */}
+          <div className="absolute left-0 md:left-1/2 h-full w-0.5 bg-gradient-to-b from-blue-500/20 via-purple-500/50 to-transparent"></div>
+          
+          {/* Experience items */}
+          <div className="space-y-8">
+            {experiences.map((exp, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className={`relative flex ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} items-center`}
+              >
+                {/* Timeline dot */}
+                <div className="absolute left-0 md:left-1/2 w-4 h-4 -ml-2 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 z-10"></div>
+                
+                {/* Card */}
+                <div className={`w-full md:w-5/12 ${index % 2 === 0 ? 'md:mr-auto md:pr-8' : 'md:ml-auto md:pl-8'}`}>
+                  <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden border border-gray-100 dark:border-gray-700 hover:shadow-lg transition-shadow duration-300">
+                    <div className="p-6">
+                      <div className="flex justify-between items-start">
                         <div>
-                          <h3 className="text-lg font-bold tracking-tight text-black">
-                            {exp.company}
-                          </h3>
-                          <span className="inline-block mt-1 px-2 py-0.5 text-xs rounded-full bg-neutral-100 text-black/70 border border-neutral-200">
-                            {exp.position}
-                          </span>
+                          <h3 className="text-lg font-bold text-gray-900 dark:text-white">{exp.company}</h3>
+                          <p className="text-sm text-blue-600 dark:text-blue-400 font-medium mt-1">{exp.position}</p>
                         </div>
+                        <a 
+                          href={exp.link} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                          aria-label={`Visit ${exp.company} website`}
+                        >
+                          <FiExternalLink className="w-5 h-5" />
+                        </a>
                       </div>
-                      <div className="hidden sm:flex items-center gap-2 text-xs px-2 py-1 rounded-full bg-neutral-100 text-black/80 border border-neutral-200">
-                        <FiCalendar />
+                      
+                      <div className="flex items-center text-sm text-gray-500 dark:text-gray-400 mt-2">
+                        <FiCalendar className="mr-1.5" />
                         <span>{exp.period}</span>
                       </div>
+                      
+                      <p className="mt-3 text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
+                        {exp.description}
+                      </p>
+                      
+                      <div className="mt-4 flex flex-wrap gap-2">
+                        {exp.technologies.map((tech, i) => (
+                          <span 
+                            key={i}
+                            className="px-2.5 py-1 text-xs font-medium rounded-full bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
                     </div>
-
-                    {/* Divider */}
-                    <div className="my-3 h-px bg-gradient-to-r from-transparent via-neutral-200 to-transparent" />
-
-                    {/* Period (mobile) */}
-                    <div className="sm:hidden flex items-center gap-2 text-black/70 text-xs mb-3">
-                      <FiCalendar />
-                      <span>{exp.period}</span>
-                    </div>
-
-                    {/* Description */}
-                    <p className="text-sm leading-relaxed text-black/80 mb-4">
-                      {exp.description}
-                    </p>
-
-                    {/* Tech chips */}
-                    <div className="flex flex-wrap gap-2">
-                      {exp.technologies.map((tech) => (
-                        <span
-                          key={tech}
-                          className="px-2.5 py-1 rounded-full text-[11px] bg-neutral-100 text-black border border-neutral-200 shadow-[inset_0_1px_0_rgba(255,255,255,0.12)]"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                  </motion.div>
+                  </div>
                 </div>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

@@ -3,30 +3,31 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import ThemeToggle from './ThemeToggle';
-import { FiMenu, FiX } from 'react-icons/fi';
+import { FiMenu, FiX, FiGithub, FiLinkedin, FiTwitter } from 'react-icons/fi';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const navLinks = [
-  { name: 'Home', href: '/' },
   { name: 'About', href: '#about' },
   { name: 'Experience', href: '#experience' },
   { name: 'Projects', href: '#projects' },
   { name: 'Skills', href: '#skills' },
-  { name: 'Education', href: '#education' },
   { name: 'Contact', href: '#contact' },
+];
+
+const socialLinks = [
+  { icon: <FiGithub size={20} />, href: 'https://github.com/SurajTrs' },
+  { icon: <FiLinkedin size={20} />, href: 'https://linkedin.com/in/surajrawat99' },
+  { icon: <FiTwitter size={20} />, href: 'https://twitter.com/SurajTrs' },
 ];
 
 export default function Navbar() {
   const [mounted, setMounted] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);  
   const [scrolled, setScrolled] = useState(false);
   
-  // Avoid hydration mismatch
   useEffect(() => {
     setMounted(true);
-  }, []);
-
-  useEffect(() => {
+    
     const handleScroll = () => {
       setScrolled(window.scrollY > 10);
     };
@@ -36,101 +37,105 @@ export default function Navbar() {
   }, []);
   
   if (!mounted) {
-    return <header className="fixed top-0 w-full z-50 h-16 md:h-20"></header>; // Placeholder with same height
+    return <header className="fixed top-0 w-full z-50 h-16 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md"></header>;
   }
 
   return (
     <header
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'glass shadow-lg' : 'bg-transparent'}`}
+      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+        scrolled 
+          ? 'bg-white/80 dark:bg-gray-900/80 backdrop-blur-md shadow-sm' 
+          : 'bg-transparent'
+      }`}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 md:h-20">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
+        <div className="flex items-center justify-between h-16">
+          <Link 
+            href="/" 
+            className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
           >
-            <Link href="/" className="text-xl font-bold gradient-text animate-pulse-slow">
-              Suraj Rawat
-            </Link>
-          </motion.div>
+            Suraj Rawat
+          </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
-            {navLinks.map((link, index) => (
-              <motion.div
+          <nav className="hidden md:flex items-center space-x-1">
+            {navLinks.map((link) => (
+              <Link
                 key={link.name}
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: index * 0.05 }}
+                href={link.href}
+                className="px-4 py-2 text-sm font-medium text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition-colors"
               >
-                <Link
-                  href={link.href}
-                  className="text-foreground/80 hover:text-primary transition-all hover:scale-110 inline-block"
-                >
-                  {link.name}
-                </Link>
-              </motion.div>
+                {link.name}
+              </Link>
             ))}
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: navLinks.length * 0.05 }}
-            >
+            
+            <div className="flex items-center space-x-1 ml-4 border-l border-gray-200 dark:border-gray-700 pl-4">
+              {socialLinks.map((social, index) => (
+                <a
+                  key={index}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors"
+                >
+                  {social.icon}
+                </a>
+              ))}
+            </div>
+            
+            <div className="ml-4">
               <ThemeToggle />
-            </motion.div>
+            </div>
           </nav>
 
           {/* Mobile Navigation Toggle */}
-          <motion.div 
-            className="flex items-center md:hidden"
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <ThemeToggle />
-            <motion.button
+          <div className="flex items-center md:hidden">
+            <button
               onClick={() => setIsOpen(!isOpen)}
-              className="ml-4 p-2 rounded-full glass text-foreground focus:outline-none hover:shadow-md transition-all"
+              className="p-2 rounded-lg text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800 focus:outline-none"
               aria-label="Toggle menu"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
             >
               {isOpen ? <FiX size={24} /> : <FiMenu size={24} />}
-            </motion.button>
-          </motion.div>
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* Mobile Navigation Menu */}
+      {/* Mobile Menu */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            className="md:hidden glass shadow-lg"
+            transition={{ duration: 0.3, ease: 'easeInOut' }}
+            className="md:hidden bg-white dark:bg-gray-900 shadow-lg"
           >
-            <div className="container mx-auto px-4 py-4">
-              <nav className="flex flex-col space-y-4">
-                {navLinks.map((link, index) => (
-                  <motion.div
-                    key={link.name}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.2, delay: index * 0.05 }}
+            <div className="px-4 py-3 space-y-1">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  className="block px-4 py-3 text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800 rounded-lg transition-colors"
+                  onClick={() => setIsOpen(false)}
+                >
+                  {link.name}
+                </Link>
+              ))}
+              
+              <div className="flex items-center justify-center space-x-4 pt-2 pb-4 border-t border-gray-100 dark:border-gray-800 mt-2">
+                {socialLinks.map((social, index) => (
+                  <a
+                    key={index}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2 text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors"
                   >
-                    <Link
-                      href={link.href}
-                      onClick={() => setIsOpen(false)}
-                      className="text-foreground/80 hover:text-primary transition-all py-2 block hover:translate-x-2"
-                    >
-                      {link.name}
-                    </Link>
-                  </motion.div>
+                    {social.icon}
+                  </a>
                 ))}
-              </nav>
+              </div>
             </div>
           </motion.div>
         )}
