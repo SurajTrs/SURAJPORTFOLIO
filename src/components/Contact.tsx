@@ -128,7 +128,7 @@ suraj.schs99@gmail.com
                       </div>
                       <div>
                         <h4 className="font-medium text-gray-500 dark:text-gray-400 text-sm">Location</h4>
-                        <p className="text-gray-900 dark:text-white">San Francisco, CA</p>
+                        <p className="text-gray-900 dark:text-white">Gurgaon, Haryana</p>
                       </div>
                     </div>
 
