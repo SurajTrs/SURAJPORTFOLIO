@@ -14,7 +14,7 @@ export default function Footer() {
           </div>
           <div className="flex space-x-4">
             <a
-              href="https://github.com/surajrawat"
+              href="https://github.com/SurajTrs"
               target="_blank"
               rel="noopener noreferrer"
               className="text-foreground/70 hover:text-primary transition-colors"
@@ -23,7 +23,7 @@ export default function Footer() {
               <FiGithub className="h-5 w-5" />
             </a>
             <a
-              href="https://linkedin.com/in/surajrawat"
+              href="https://linkedin.com/in/surajrawat99"
               target="_blank"
               rel="noopener noreferrer"
               className="text-foreground/70 hover:text-primary transition-colors"
